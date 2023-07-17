@@ -1,0 +1,73 @@
+body,
+html {
+  background-color: rgb(249 250 251);
+  color: rgb(0 0 0);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+}
+
+.book-list {
+  display: flex;
+  justify-content: center;
+}
+
+.book-card {
+  width: 300px;
+  border: 1px solid #ccc;
+  padding: 16px;
+  margin: 16px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.25rem;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+
+  &:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+}
+
+.book-image img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 16px;
+  background-color: rgb(243 244 246);
+  border-radius: 0.5rem;
+  transition: 200ms;
+}
+
+.favorite-button {
+  cursor: pointer;
+  margin-top: auto;
+  text-align: center;
+  font-size: 24px;
+}
+
+.pagination {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}

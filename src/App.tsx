@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from 'react';
+import './global.scss';
+import BookList from './components/BookList';
 
-function App() {
-  const [count, setCount] = useState(0)
+const App: React.FC = () => {
+  const [favorites, setFavorites] = useState<number[]>([]);
+
+  // Load favorites from localStorage on initial mount
+  useEffect(() => {
+    const storedFavorites = localStorage.getItem('favorites');
+    if (storedFavorites) {
+      setFavorites(JSON.parse(storedFavorites) as number[]);
+    }
+  }, []);
+
+  // Update favorites in localStorage whenever it changes
+  useEffect(() => {
+    localStorage.setItem('favorites', JSON.stringify(favorites));
+  }, [favorites]);
+
+  const handleToggleFavorite = (bookId: number) => {
+    if (favorites.includes(bookId)) {
+      setFavorites(favorites.filter((id) => id !== bookId));
+    } else {
+      setFavorites([...favorites, bookId]);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app">
+      <h1>Book Web App</h1>
+      <BookList favorites={favorites} onToggleFavorite={handleToggleFavorite} />
+    </div>
+  );
+};
 
-export default App
+export default App;
