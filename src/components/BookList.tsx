@@ -27,11 +27,19 @@ const BookList: React.FC<BookListProps> = ({ favorites, onToggleFavorite }) => {
 
     const fetchBooks = async () => {
         try {
-            const response = await fetch('https://my-json-server.typicode.com/cutamar/mock/books');
-            if (!response.ok) {
-                throw new Error('Error fetching books');
+            let data: Book[] = []
+            const responseData = localStorage.getItem("responseData")
+            if (responseData) {
+                console.log({ responseData })
+                data = JSON.parse(responseData)
+            } else {
+                const response = await fetch('https://my-json-server.typicode.com/cutamar/mock/books');
+                if (!response.ok) {
+                    throw new Error('Error fetching books');
+                }
+                data = await response.json() as Book[];
+                localStorage.setItem("responseData", JSON.stringify(data))
             }
-            const data = await response.json() as Book[];
             setBooks(data);
         } catch (error) {
             handleError(error)
@@ -82,7 +90,7 @@ const BookList: React.FC<BookListProps> = ({ favorites, onToggleFavorite }) => {
         return <div>Error fetching data.</div>;
     }
 
-    return (
+    return ( 
         <>
             <div className="book-list">
                 {currentBooks.map((book) => (
@@ -93,8 +101,9 @@ const BookList: React.FC<BookListProps> = ({ favorites, onToggleFavorite }) => {
                         onToggleFavorite={handleToggleFavorite}
                     />
                 ))}
-            </div>
-            <Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={currentBooks.length} />
+            </div> <
+                Pagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={currentBooks.length}
+            /> 
         </>
     );
 };

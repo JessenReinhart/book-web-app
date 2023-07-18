@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './global.scss';
+
+//components
 import BookList from './components/BookList';
+
+//styling
+import './global.scss';
 
 const App: React.FC = () => {
   const [favorites, setFavorites] = useState<number[]>([]);
@@ -9,7 +13,8 @@ const App: React.FC = () => {
   useEffect(() => {
     const storedFavorites = localStorage.getItem('favorites');
     if (storedFavorites) {
-      setFavorites(JSON.parse(storedFavorites) as number[]);
+      const parsedFavorites = JSON.parse(storedFavorites) as number[];
+      setFavorites(parsedFavorites);
     }
   }, []);
 
