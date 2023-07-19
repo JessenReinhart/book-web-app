@@ -16,7 +16,6 @@ const BookDetail: React.FC<{ id: string }> = ({ id }: { id: string }) => {
 				throw new Error('Error fetching books');
 			}
 			const data = await response.json() as Book;
-			console.log({ data })
 			setDetails(data)
 		} catch (error) {
 			console.error(error)
