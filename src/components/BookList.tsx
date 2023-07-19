@@ -4,15 +4,7 @@ import BookCard from './BookCard';
 import Pagination from './Pagination';
 
 import './BookCardSkeleton.scss'
-
-interface Book {
-    id: number;
-    title: string;
-    author: string;
-    description: string;
-    cover: string;
-    publicationDate: string;
-}
+import { Book } from './types';
 
 interface BookListProps {
     favorites: number[];
@@ -30,7 +22,6 @@ const BookList: React.FC<BookListProps> = ({ favorites, onToggleFavorite }) => {
             let data: Book[] = []
             const responseData = localStorage.getItem("responseData")
             if (responseData) {
-                console.log({ responseData })
                 data = JSON.parse(responseData)
             } else {
                 const response = await fetch('https://my-json-server.typicode.com/cutamar/mock/books');

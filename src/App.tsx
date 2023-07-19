@@ -2,15 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 //components
 import BookList from './components/BookList';
+import BookDetail from './components/BookDetail';
 
 //styling
 import './global.scss';
 
 const App: React.FC = () => {
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [id, setId] = useState<string | null>(null)
 
   // Load favorites from localStorage on initial mount
   useEffect(() => {
+    setId(getBookIdFromUrl())
     const storedFavorites = localStorage.getItem('favorites');
     if (storedFavorites) {
       const parsedFavorites = JSON.parse(storedFavorites) as number[];
@@ -34,9 +37,16 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <h1>Book Web App</h1>
-      <BookList favorites={favorites} onToggleFavorite={handleToggleFavorite} />
+      {id ? <BookDetail id={id} /> : <BookList favorites={favorites} onToggleFavorite={handleToggleFavorite} />}
     </div>
   );
 };
+
+function getBookIdFromUrl() {
+  const url = window.location.pathname;
+  const matches = url.match(/\/(\d+)/);
+  return matches ? matches[1] : null;
+};
+
 
 export default App;
