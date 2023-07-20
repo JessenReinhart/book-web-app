@@ -43,9 +43,19 @@ const App: React.FC = () => {
 };
 
 function getBookIdFromUrl() {
-  const url = window.location.pathname;
-  const matches = url.match(/\/(\d+)/);
-  return matches ? matches[1] : null;
+// Get the current URL
+const currentURL = window.location.href;
+
+// Create a URL object
+const url = new URL(currentURL);
+
+// Get the URLSearchParams object from the URL
+const searchParams = url.searchParams;
+
+// Get the value of the 'id' parameter
+const myID = searchParams.get('id');
+
+return myID || null
 };
 
 

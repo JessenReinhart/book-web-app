@@ -14,7 +14,7 @@ const BookCard: React.FC<BookCardProps> = ({ book, isFavorite, onToggleFavorite 
     };
 
     const handleClick = (id: number) => {
-        window.location.href = `/${id}`;
+        window.location.href = `?id=${id}`;
     }
 
     return (
